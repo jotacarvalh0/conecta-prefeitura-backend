@@ -1,7 +1,13 @@
 import prisma from '../prisma';
 
+interface ListarComunicadosParams {
+  secretariaId?: number;
+  pagina?: number;
+  limite?: number;
+}
+
 export const ComunicadoService = {
-  async listar(secretariaId?: number, pagina = 1, limite = 10) {
+  async listar({ secretariaId, pagina = 1, limite = 10 }: ListarComunicadosParams = {}) {
     const skip = (pagina - 1) * limite;
     
     return prisma.comunicado.findMany({
