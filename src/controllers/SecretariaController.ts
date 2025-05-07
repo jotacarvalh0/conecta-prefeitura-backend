@@ -28,5 +28,26 @@ export const SecretariaController = {
     } catch (error) {
       res.status(400).json({ error: 'Erro ao criar secretaria' });
     }
+  },
+
+  async atualizar(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+      const data = req.body;
+      const secretariaAtualizada = await SecretariaService.atualizar(Number(id), data);
+      res.json(secretariaAtualizada);
+    } catch (error) {
+      res.status(500).json({ error: 'Erro ao atualizar secretaria' });
+    }
+  },
+  
+  async remover(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+      await SecretariaService.remover(Number(id));
+      res.status(204).send(); // No Content
+    } catch (error) {
+      res.status(500).json({ error: 'Erro ao remover secretaria' });
+    }
   }
 };

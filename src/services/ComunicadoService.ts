@@ -19,6 +19,22 @@ export const ComunicadoService = {
     });
   },
 
+  async listarPorSecretaria(secretariaId: number, pagina: number = 1, limite: number = 10) {
+    const skip = (pagina - 1) * limite;
+    
+    return prisma.comunicado.findMany({
+      where: { secretariaId },
+      include: {
+        secretaria: true
+      },
+      orderBy: {
+        dataPublicacao: 'desc' 
+      },
+      skip, 
+      take: limite 
+    });
+  },
+
   async buscarPorId(id: number) {
     return prisma.comunicado.findUnique({
       where: { id },
