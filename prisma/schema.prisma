@@ -26,3 +26,13 @@ model Comunicado {
   secretariaId   Int
   createdAt      DateTime   @default(now())
 }
+
+model Usuario {
+  id        Int      @id @default(autoincrement())
+  nome      String
+  email     String   @unique
+  senha     String
+  isAdmin   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
